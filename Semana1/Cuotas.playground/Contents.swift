@@ -13,6 +13,7 @@ func calcularDescuento(cantidad: Int, subtotal: Double) -> Double {
     } else {
         return 0.0
     }
+    
 }
 
 print("Ingrese el nombre del producto: ")
