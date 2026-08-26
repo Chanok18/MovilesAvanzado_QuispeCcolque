@@ -49,3 +49,4 @@ for mes in 1...planCuotas {
 
     print("\(mes)\t\(String(format: "%.2f", montoInicialMes))\t\t\(String(format: "%.2f", montoCuota))\t\t\(String(format: "%.2f", saldoPendiente))")
 }
+
