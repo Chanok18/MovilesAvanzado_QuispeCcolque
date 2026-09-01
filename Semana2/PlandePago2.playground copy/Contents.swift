@@ -59,3 +59,31 @@ var mesActual = Int(readLine() ?? "1") ?? 1
 print("Año de inicio:")
 var anioActual = Int(readLine() ?? "2026") ?? 2026
 
+// --- PASO 5: RESUMEN ---
+print("\nPLAN DE PAGO")
+print("Producto: \(producto)    Interes: S/ \(String(format: "%.2f", interesMonto))    Cuotas: \(planCuotas) meses")
+print("Monto cuota: S/ \(String(format: "%.2f", montoCuota))    Monto final: S/ \(String(format: "%.2f", montoFinal))\n")
+
+// --- PASO 6: TABLA DE CRONOGRAMA (alineada con rellenar) ---
+print(rellenar("Mes", 5) + rellenar("Fecha", 14) + rellenar("Monto inicial", 16) + rellenar("Pago", 12) + rellenar("Resta x pagar", 14))
+
+var saldoPendiente = montoFinal
+var mesesPagados = 0
+
+for mes in 1...planCuotas {
+    if saldoPendiente <= 0 { break } // se corta si ya se pago todo antes de tiempo
+    let montoInicialMes = saldoPendiente
+    var pagoDelMes = montoCuota
+
+    if mes == mesAdelanto { pagoDelMes += montoAdicional } // suma el pago extra solo ese mes
+    saldoPendiente -= pagoDelMes
+    if saldoPendiente < 0 { saldoPendiente = 0.0 } // evita saldo negativo por redondeo
+
+    let fecha = "\(diaPago)/\(String(format: "%02d", mesActual))/\(anioActual)"
+    print(rellenar("\(mes)", 5) + rellenar(fecha, 14) + rellenar(String(format: "%.2f", montoInicialMes), 16) + rellenar(String(format: "%.2f", pagoDelMes), 12) + rellenar(String(format: "%.2f", saldoPendiente), 14))
+
+    mesesPagados += 1
+    mesActual += 1
+    if mesActual > 12 { mesActual = 1; anioActual += 1 } // pasa al siguiente año si se pasa de diciembre
+}
+print("\nMeses pagados \(mesesPagados) de \(planCuotas)")
