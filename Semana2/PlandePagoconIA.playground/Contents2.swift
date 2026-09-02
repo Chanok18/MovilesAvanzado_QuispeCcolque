@@ -5,7 +5,6 @@ func rellenar(_ texto: String, _ ancho: Int) -> String {
     if texto.count >= ancho { return texto + " " }
     return texto + String(repeating: " ", count: ancho - texto.count)
 }
-
 // --- PASO 1: DATOS DEL PRODUCTO ---
 print("Nombre del producto:")
 let producto = readLine() ?? ""
@@ -14,7 +13,7 @@ let precioUnit = Double(readLine() ?? "0") ?? 0.0
 print("Cantidad:")
 let cantidad = Int(readLine() ?? "0") ?? 0
 
-let montoTotalCompra = precioUnit * Double(cantidad) // precio x cantidad
+let montoTotalCompra = precioUnit * Double(cantidad)
 print("\nMONTO TOTAL: S/ \(montoTotalCompra)")
 
 // --- PASO 2: PLAN DE PAGO (con validacion) ---
@@ -29,8 +28,6 @@ while planCuotas != 6 && planCuotas != 12 && planCuotas != 24 {
     }
 }
 var porcentajeInteres: Double = 0.0
-
-// interes segun el plan elegido
 switch planCuotas {
 case 6: porcentajeInteres = 0.20
 case 12: porcentajeInteres = 0.40
@@ -75,13 +72,12 @@ for mes in 1...planCuotas {
     let montoInicialMes = saldoPendiente
     var pagoDelMes = montoCuota
 
-    if mes == mesAdelanto { pagoDelMes += montoAdicional } // suma el pago extra solo ese mes
+    if mes == mesAdelanto { pagoDelMes += montoAdicional }
     saldoPendiente -= pagoDelMes
     if saldoPendiente < 0 { saldoPendiente = 0.0 } // evita saldo negativo por redondeo
 
     let fecha = "\(diaPago)/\(String(format: "%02d", mesActual))/\(anioActual)"
     print(rellenar("\(mes)", 5) + rellenar(fecha, 14) + rellenar(String(format: "%.2f", montoInicialMes), 16) + rellenar(String(format: "%.2f", pagoDelMes), 12) + rellenar(String(format: "%.2f", saldoPendiente), 14))
-
     mesesPagados += 1
     mesActual += 1
     if mesActual > 12 { mesActual = 1; anioActual += 1 } // pasa al siguiente año si se pasa de diciembre
