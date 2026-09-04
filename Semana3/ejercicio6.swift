@@ -39,3 +39,33 @@ for (nombre, notas) in notasAlumnos { // recorre cada alumno del diccionario
 
     print("\(nombre): Promedio \(promedio) -> \(clasificacion)")
 }
+print("\n===== ESTADISTICAS GENERALES =====") // encabezado de estadisticas
+var promediosPorAlumno: [String: Double] = [:] 
+var sumaGeneral = 0.0 
+var aprobadosCount = 0 
+
+for (nombre, notas) in notasAlumnos { 
+    var suma = 0.0 
+    for nota in notas { suma += nota } 
+    let promedio = suma / Double(notas.count) 
+    promediosPorAlumno[nombre] = promedio 
+    sumaGeneral += promedio 
+    if promedio >= 13 { aprobadosCount += 1 } 
+}
+let promedioGeneral = sumaGeneral / Double(promediosPorAlumno.count) // promedio de todos los alumnos
+let notaMasAlta = promediosPorAlumno.values.max() ?? 0 
+let notaMasBaja = promediosPorAlumno.values.min() ?? 0 
+let porcentajeAprobados = Double(aprobadosCount) / Double(promediosPorAlumno.count) * 100 // % de aprobados
+
+print("Promedio general: \(promedioGeneral)") 
+print("Nota mas alta: \(notaMasAlta)") 
+print("Nota mas baja: \(notaMasBaja)") 
+print("Porcentaje aprobados: \(porcentajeAprobados)%") 
+
+// ordenar alumnos por promedio de mayor a menor
+let ordenados = promediosPorAlumno.sorted { $0.value > $1.value } // ordena el diccionario convertido en lista de pares
+
+print("\n===== RANKING POR PROMEDIO =====") 
+for (nombre, promedio) in ordenados { // recorre la lista ya ordenada
+    print("\(nombre): \(promedio)") 
+}
