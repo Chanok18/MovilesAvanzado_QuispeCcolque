@@ -52,3 +52,13 @@ for i in 1...4 {
 print("\nAmbos dias: \(lunes.intersection(martes))")
 print("Solo lunes: \(lunes.subtracting(martes))")
 print("Solo martes: \(martes.subtracting(lunes))")
+
+// --- PREDICT ---
+let a: Set = [1, 2, 3, 4, 5]
+let b: Set = [4, 5, 6, 7, 8]
+print(a.intersection(b))    
+print(a.union(b).count)    
+print(a.subtracting(b))     
+
+var repetidos: Set = ["A", "B", "A", "C", "B"]
+print(repetidos.count) 
