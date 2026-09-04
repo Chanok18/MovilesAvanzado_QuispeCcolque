@@ -51,3 +51,13 @@ if let precioEncontrado = productos[buscarProd] {
 } else {
     print("Producto no encontrado")
 }
+var edades: [String: Int] = ["Ana": 20, "Luis": 22, "Maria": 19]
+var mayores: [String] = []
+for (nombre, edad) in edades {
+    if edad >= 21 {
+        mayores.append(nombre)
+    }
+}
+print("Mayores de 21: \(mayores)")
+// ANALYZE 1: Recorre el diccionario de edades y guarda en 'mayores' solo los nombres
+// de las personas con 21 años o mas
