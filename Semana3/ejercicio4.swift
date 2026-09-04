@@ -28,4 +28,20 @@ for (alumno, pa) in notasPa {
     }
 }
 print("Promedio general: \(sumaGeneral / Double(notasPa.count))")
-print("Aprobados: \(totalAprobados) de \(notasPa.count)")
+print("Aprobados: \(totalAprobados) de \(notasPa.count)")// --- TODO 10: Inventario de productos ---
+var precios: [String: Double] = [:]
+var stocks: [String: Int] = [:]
+
+print("¿Cuantos productos?")
+let n = Int(readLine() ?? "") ?? 0
+
+for i in 1...n {
+    print("Producto \(i) - Nombre:")
+    let nombre = readLine() ?? ""
+    print("Precio:")
+    let precio = Double(readLine() ?? "") ?? 0
+    print("Stock:")
+    let stock = Int(readLine() ?? "") ?? 0
+    precios[nombre] = precio
+    stocks[nombre] = stock
+}
