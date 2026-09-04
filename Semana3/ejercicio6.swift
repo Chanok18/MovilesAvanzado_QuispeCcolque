@@ -14,5 +14,28 @@ for i in 1...cantidad { // repite una vez por cada alumno
         let nota = Double(readLine() ?? "") ?? 0 // convierte a decimal, si falla usa 0
         notas.append(nota) // agrega la nota al array
     }
-    notasAlumnos[nombre] = notas // guarda el array de notas bajo el nombre del alumno
+    notasAlumnos[nombre] = notas 
+}
+print("\n===== RESULTADOS POR ALUMNO =====") 
+
+for (nombre, notas) in notasAlumnos { // recorre cada alumno del diccionario
+    var suma = 0.0 // acumulador para sumar las notas
+    for nota in notas { // recorre las 3 notas del alumno actual
+        suma += nota // suma cada nota al acumulador
+    }
+    let promedio = suma / Double(notas.count) // calcula el promedio
+
+    var clasificacion = "" 
+    switch promedio { 
+    case 17...20:
+        clasificacion = "Excelente" 
+    case 14..<17:
+        clasificacion = "Bueno" 
+    case 13..<14:
+        clasificacion = "Aprobado" 
+    default:
+        clasificacion = "Desaprobado"
+    }
+
+    print("\(nombre): Promedio \(promedio) -> \(clasificacion)")
 }
