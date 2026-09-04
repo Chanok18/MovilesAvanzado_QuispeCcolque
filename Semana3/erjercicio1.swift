@@ -64,3 +64,21 @@ for nota in notasClase {
 }
 print("Promedio: \(sumaNotas / Double(notasClase.count))")
 print("Aprobados: \(aprobados), Desaprobados: \(desaprobados)")
+var frutas = ["Manzana", "Platano", "Naranja"]
+frutas.append("Uva") 
+
+var colores = ["Rojo", "Azul", "Verde"] 
+colores.append("Amarillo")
+
+let numeros = [10, 20, 30, 40, 50]
+print(numeros[4]) 
+
+var lista = [1, 2, 3, 4, 5]
+lista.remove(at: 0)
+lista.append(6)
+print(lista)       
+print(lista.count) 
+
+var nombresPred = ["Ana", "Carlos", "Beto"]
+print(nombresPred.sorted()) 
+print(nombresPred)      
