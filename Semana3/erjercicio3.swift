@@ -62,3 +62,19 @@ print(a.subtracting(b))
 
 var repetidos: Set = ["A", "B", "A", "C", "B"]
 print(repetidos.count) 
+// Calcular valor total (precio x stock)
+var valorTotalInventario = 0.0
+for (nombre, precio) in precios {
+    if let stock = stocks[nombre] {
+        valorTotalInventario += precio * Double(stock)
+    }
+}
+print("\nValor total del inventario: S/. \(valorTotalInventario)")
+
+// Mostrar productos con stock menor a 5
+print("\nProductos con stock bajo (< 5):")
+for (nombre, stock) in stocks {
+    if stock < 5 {
+        print("\(nombre): \(stock) unidades")
+    }
+}
