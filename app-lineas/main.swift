@@ -100,7 +100,47 @@ func consultarLinea() {
         print("Linea no encontrada")
     }
 }
+// 3: Buscar ruta
+func buscarRuta() {
+    print("Estacion de origen:")
+    let origenNombre = readLine() ?? ""
+    print("Estacion de destino:")
+    let destinoNombre = readLine() ?? ""
 
+    guard let origen = buscarEstacionPorNombre(origenNombre) else {
+        print("Estacion de origen no encontrada")
+        return
+    }
+    guard let destino = buscarEstacionPorNombre(destinoNombre) else {
+        print("Estacion de destino no encontrada")
+        return
+    }
+
+    if origen.lineaId == destino.lineaId {
+        let linea = mapaLineas[origen.lineaId]
+        print("\nPuedes ir directo por la \(linea?.nombre ?? "")")
+        print("Ruta: \(origen.nombre) -> \(destino.nombre)")
+    } else {
+        var estacionTransbordo: Estacion? = nil
+
+        for (_, estacion) in mapaEstaciones {
+            if estacion.lineaId == origen.lineaId && estacion.conexiones.contains(destino.lineaId) {
+                estacionTransbordo = estacion
+            }
+        }
+
+        if let transbordo = estacionTransbordo {
+            let lineaOrigen = mapaLineas[origen.lineaId]
+            let lineaDestino = mapaLineas[destino.lineaId]
+            print("\nRuta con transbordo:")
+            print("1. Toma la \(lineaOrigen?.nombre ?? "") desde \(origen.nombre) hasta \(transbordo.nombre)")
+            print("2. Haz transbordo a la \(lineaDestino?.nombre ?? "")")
+            print("3. Continua hasta \(destino.nombre)")
+        } else {
+            print("No se encontro una ruta directa entre estas estaciones")
+        }
+    }
+}
 // MENU PRINCIPAL
 var opcion = 0
 while opcion != 4 {
@@ -116,6 +156,8 @@ while opcion != 4 {
         consultarEstacion()
     } else if opcion == 2 {
         consultarLinea()
+    } else if opcion == 3 {
+        buscarRuta()
     } else if opcion == 4 {
         print("Saliendo del sistema...")
     }
