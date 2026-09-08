@@ -10,7 +10,7 @@ struct Estacion {
 }
 struct Linea {
     let id: String
-    let nombre: String
+    let nombre: String 
     let color: String
     let estaciones: [String] // ids en orden
 }
@@ -83,5 +83,40 @@ func consultarEstacion() {
         }
     } else {
         print("Estacion no encontrada")
+    }
+}
+// 2: Consultar linea
+func consultarLinea() {
+    print("Ingresa el codigo de linea (L1, L2, L4, MET):")
+    let codigo = (readLine() ?? "").uppercased()
+    if let linea = mapaLineas[codigo] {
+        print("\n===== \(linea.nombre) (\(linea.color)) =====")
+        for idEstacion in linea.estaciones {
+            if let estacion = mapaEstaciones[idEstacion] {
+                print("- \(estacion.nombre)")
+            }
+        }
+    } else {
+        print("Linea no encontrada")
+    }
+}
+
+// MENU PRINCIPAL
+var opcion = 0
+while opcion != 4 {
+    print("\n===== METRO DE LIMA =====")
+    print("1) Consultar estacion")
+    print("2) Consultar linea")
+    print("3) Buscar ruta")
+    print("4) Salir")
+    print("Elige una opcion:")
+    opcion = Int(readLine() ?? "") ?? 0
+
+    if opcion == 1 {
+        consultarEstacion()
+    } else if opcion == 2 {
+        consultarLinea()
+    } else if opcion == 4 {
+        print("Saliendo del sistema...")
     }
 }
