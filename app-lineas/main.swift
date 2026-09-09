@@ -32,8 +32,9 @@ let mapaEstaciones: [String: Estacion] = [
     "EAN": Estacion(id: "EAN", nombre: "El Angel", lineaId: "L1", avenidasCercanas: ["Av. El Angel"], puntosDeInteres: ["Hospital Almenara"], conexiones: []),
     "GRA": Estacion(id: "GRA", nombre: "Grau", lineaId: "L1", avenidasCercanas: ["Av. Miguel Grau", "Av. Aviacion"], puntosDeInteres: ["Polvos Azules"], conexiones: []),
     "28J": Estacion(id: "28J", nombre: "28 de Julio", lineaId: "L1", avenidasCercanas: ["Av. 28 de Julio", "Av. Aviacion"], puntosDeInteres: ["Gamarra"], conexiones: ["L2"]),
-    "LCU": Estacion(id: "LCU", nombre: "La Cultura", lineaId: "L1", avenidasCercanas: ["Av. Javier Prado", "Av. De la Cultura"], puntosDeInteres: ["Museo de la Nacion"], conexiones: []),
-    "SBS": Estacion(id: "SBS", nombre: "San Borja Sur", lineaId: "L1", avenidasCercanas: ["Av. San Borja Sur"], puntosDeInteres: [], conexiones: []),
+    "LCU": Estacion(id: "LCU", nombre: "La Cultura", lineaId: "L1",
+        avenidasCercanas: ["Av. Javier Prado", "Av. De la Cultura"],
+        puntosDeInteres: ["Museo de la Nacion", "Jockey Plaza"], conexiones: []),    "SBS": Estacion(id: "SBS", nombre: "San Borja Sur", lineaId: "L1", avenidasCercanas: ["Av. San Borja Sur"], puntosDeInteres: [], conexiones: []),
     "ANG": Estacion(id: "ANG", nombre: "Angamos", lineaId: "L1", avenidasCercanas: ["Av. Angamos"], puntosDeInteres: [], conexiones: []),
     "VES": Estacion(id: "VES", nombre: "San Juan de Miraflores", lineaId: "L1", avenidasCercanas: ["Av. Los Heroes"], puntosDeInteres: [], conexiones: []),
 
@@ -45,13 +46,15 @@ let mapaEstaciones: [String: Estacion] = [
     "ATE": Estacion(id: "ATE", nombre: "Mercado Santa Anita", lineaId: "L2", avenidasCercanas: ["Av. Los Postes"], puntosDeInteres: ["Mercado Santa Anita"], conexiones: ["L4"]),
 
     "GAM2": Estacion(id: "GAM2", nombre: "Gambeta", lineaId: "L4", avenidasCercanas: ["Av. Gambeta"], puntosDeInteres: [], conexiones: []),
-    "AER": Estacion(id: "AER", nombre: "Aeropuerto", lineaId: "L4", avenidasCercanas: ["Av. Faucett"], puntosDeInteres: ["Aeropuerto Jorge Chavez"], conexiones: []),
-    "CLE": Estacion(id: "CLE", nombre: "Carmen de la Legua", lineaId: "L4", avenidasCercanas: ["Av. Faucett", "Av. Oscar R. Benavides"], puntosDeInteres: ["Mallplaza Bellavista"], conexiones: []),
+    "AER": Estacion(id: "AER", nombre: "Aeropuerto", lineaId: "L4",
+        avenidasCercanas: ["Av. Faucett"],
+        puntosDeInteres: ["Aeropuerto Jorge Chavez"], conexiones: []),    "CLE": Estacion(id: "CLE", nombre: "Carmen de la Legua", lineaId: "L4", avenidasCercanas: ["Av. Faucett", "Av. Oscar R. Benavides"], puntosDeInteres: ["Mallplaza Bellavista"], conexiones: []),
     "SANANI": Estacion(id: "SANANI", nombre: "Santa Anita", lineaId: "L4", avenidasCercanas: ["Av. Los Postes"], puntosDeInteres: [], conexiones: ["L2"]),
 
     "GAB": Estacion(id: "GAB", nombre: "Gambeta (Metropolitano)", lineaId: "MET", avenidasCercanas: ["Av. Gambeta"], puntosDeInteres: [], conexiones: []),
-    "ECE2": Estacion(id: "ECE2", nombre: "Estacion Central", lineaId: "MET", avenidasCercanas: ["Av. Garcilaso de la Vega", "Av. Paseo de la Republica"], puntosDeInteres: ["Real Plaza Centro Civico"], conexiones: ["L2"]),
-    "STA": Estacion(id: "STA", nombre: "Estadio Nacional", lineaId: "MET", avenidasCercanas: ["Av. Petit Thouars", "Av. Paseo de la Republica"], puntosDeInteres: ["Estadio Nacional del Peru"], conexiones: []),
+    "ECE2": Estacion(id: "ECE2", nombre: "Estacion Central", lineaId: "MET",
+        avenidasCercanas: ["Av. Garcilaso de la Vega", "Av. Paseo de la Republica"],
+        puntosDeInteres: ["Real Plaza Centro Civico", "Centro de Lima"], conexiones: ["L2"]),    "STA": Estacion(id: "STA", nombre: "Estadio Nacional", lineaId: "MET", avenidasCercanas: ["Av. Petit Thouars", "Av. Paseo de la Republica"], puntosDeInteres: ["Estadio Nacional del Peru"], conexiones: []),
     "MAT": Estacion(id: "MAT", nombre: "Matellini", lineaId: "MET", avenidasCercanas: ["Av. Huaylas"], puntosDeInteres: [], conexiones: [])
 ]
 
@@ -63,6 +66,25 @@ func buscarEstacionPorNombre(_ nombre: String) -> Estacion? {
         }
     }
     return nil
+}
+// busca una estacion por un punto de interes cercano (ej: "Jockey Plaza")
+func buscarEstacionPorPuntoDeInteres(_ lugar: String) -> Estacion? {
+    for (_, estacion) in mapaEstaciones {
+        for punto in estacion.puntosDeInteres {
+            if punto.lowercased() == lugar.lowercased() {
+                return estacion
+            }
+        }
+    }
+    return nil
+}
+
+// intenta encontrar la estacion primero por nombre, y si no, por punto de interes
+func buscarEstacionGeneral(_ texto: String) -> Estacion? {
+    if let porNombre = buscarEstacionPorNombre(texto) {
+        return porNombre
+    }
+    return buscarEstacionPorPuntoDeInteres(texto)
 }
 
 // 1: Consultar estacion
@@ -107,15 +129,15 @@ func buscarRuta() {
     print("Estacion de destino:")
     let destinoNombre = readLine() ?? ""
 
-    guard let origen = buscarEstacionPorNombre(origenNombre) else {
-        print("Estacion de origen no encontrada")
+    guard let origen = buscarEstacionGeneral(origenNombre) else {
+        print("No se encontro esa estacion o lugar de origen")
         return
     }
-    guard let destino = buscarEstacionPorNombre(destinoNombre) else {
-        print("Estacion de destino no encontrada")
+    guard let destino = buscarEstacionGeneral(destinoNombre) else {
+        print("No se encontro esa estacion o lugar de destino")
         return
     }
-
+}
     if origen.lineaId == destino.lineaId {
         let linea = mapaLineas[origen.lineaId]
         print("\nPuedes ir directo por la \(linea?.nombre ?? "")")
