@@ -86,9 +86,23 @@ func buscarEstacionGeneral(_ texto: String) -> Estacion? {
     }
     return buscarEstacionPorPuntoDeInteres(texto)
 }
-
+// muestra todos los nombres de estaciones disponibles, agrupados por linea
+func mostrarEstacionesDisponibles() {
+    print("\nEstaciones disponibles:")
+    for (codigoLinea, linea) in mapaLineas {
+        var nombres: [String] = []
+        for idEstacion in linea.estaciones {
+            if let estacion = mapaEstaciones[idEstacion] {
+                nombres.append(estacion.nombre)
+            }
+        }
+        print("\(codigoLinea): \(nombres.joined(separator: ", "))")
+    }
+    print("")
+}
 // 1: Consultar estacion
 func consultarEstacion() {
+    mostrarEstacionesDisponibles() // muestra las opciones antes de pedir el nombre
     print("Ingresa el nombre de la estacion:")
     let nombreBuscado = readLine() ?? ""
 
@@ -109,7 +123,8 @@ func consultarEstacion() {
 }
 // 2: Consultar linea
 func consultarLinea() {
-    print("Ingresa el codigo de linea (L1, L2, L4, MET):")
+    print("Lineas disponibles: L1, L2, L4, MET") // referencia rapida antes de preguntar
+    print("Ingresa el codigo de linea:")
     let codigo = (readLine() ?? "").uppercased()
     if let linea = mapaLineas[codigo] {
         print("\n===== \(linea.nombre) (\(linea.color)) =====")
@@ -124,6 +139,9 @@ func consultarLinea() {
 }
 // 3: Buscar ruta
 func buscarRuta() {
+    mostrarEstacionesDisponibles() // muestra las opciones antes de pedir origen y destino
+    print("Tambien puedes escribir un lugar cercano, por ejemplo: Jockey Plaza, Aeropuerto Jorge Chavez\n")
+
     print("Estacion de origen:")
     let origenNombre = readLine() ?? ""
     print("Estacion de destino:")
