@@ -137,7 +137,7 @@ func buscarRuta() {
         print("No se encontro esa estacion o lugar de destino")
         return
     }
-}
+
     if origen.lineaId == destino.lineaId {
         let linea = mapaLineas[origen.lineaId]
         print("\nPuedes ir directo por la \(linea?.nombre ?? "")")
