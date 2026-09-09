@@ -48,7 +48,7 @@ let mapaEstaciones: [String: Estacion] = [
     "GAM2": Estacion(id: "GAM2", nombre: "Gambeta", lineaId: "L4", avenidasCercanas: ["Av. Gambeta"], puntosDeInteres: [], conexiones: []),
     "AER": Estacion(id: "AER", nombre: "Aeropuerto", lineaId: "L4",
         avenidasCercanas: ["Av. Faucett"],
-        puntosDeInteres: ["Aeropuerto Jorge Chavez"], conexiones: []),    "CLE": Estacion(id: "CLE", nombre: "Carmen de la Legua", lineaId: "L4", avenidasCercanas: ["Av. Faucett", "Av. Oscar R. Benavides"], puntosDeInteres: ["Mallplaza Bellavista"], conexiones: []),
+        puntosDeInteres: ["Aeropuerto "], conexiones: []),    "CLE": Estacion(id: "CLE", nombre: "Carmen de la Legua", lineaId: "L4", avenidasCercanas: ["Av. Faucett", "Av. Oscar R. Benavides"], puntosDeInteres: ["Mallplaza Bellavista"], conexiones: []),
     "SANANI": Estacion(id: "SANANI", nombre: "Santa Anita", lineaId: "L4", avenidasCercanas: ["Av. Los Postes"], puntosDeInteres: [], conexiones: ["L2"]),
 
     "GAB": Estacion(id: "GAB", nombre: "Gambeta (Metropolitano)", lineaId: "MET", avenidasCercanas: ["Av. Gambeta"], puntosDeInteres: [], conexiones: []),
