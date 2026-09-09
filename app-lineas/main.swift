@@ -10,18 +10,20 @@ struct Estacion {
 }
 struct Linea {
     let id: String
-    let nombre: String 
+    let nombre: String
     let color: String
-    let estaciones: [String] // ids en orden
+    let tarifaAdulto: Double
+    let tarifaMedio: Double
+    let estaciones: [String]
 }
 let mapaLineas: [String: Linea] = [
-    "L1": Linea(id: "L1", nombre: "Linea 1", color: "Verde",
+    "L1": Linea(id: "L1", nombre: "Linea 1", color: "Verde",tarifaAdulto: 1.50, tarifaMedio: 0.75,
         estaciones: ["BAY", "SRO", "SMA", "EAN", "GRA", "28J", "LCU", "SBS", "ANG", "VES"]),
-    "L2": Linea(id: "L2", nombre: "Linea 2", color: "Morado",
+    "L2": Linea(id: "L2", nombre: "Linea 2", color: "Morado",tarifaAdulto: 0.00, tarifaMedio: 0.00,
         estaciones: ["PDC", "OSC", "LAJ", "GAM", "28J", "SJDM", "ATE"]),
-    "L4": Linea(id: "L4", nombre: "Linea 4 (Ramal)", color: "Amarillo",
+    "L4": Linea(id: "L4", nombre: "Linea 4 (Ramal)", color: "Amarillo",tarifaAdulto: 0.00, tarifaMedio: 0.00,
         estaciones: ["GAM2", "AER", "CLE", "SANANI"]),
-    "MET": Linea(id: "MET", nombre: "Metropolitano", color: "Rojo",
+    "MET": Linea(id: "MET", nombre: "Metropolitano", color: "Rojo",tarifaAdulto: 3.20, tarifaMedio: 1.60,
         estaciones: ["GAB", "ECE2", "STA", "MAT"])
 ]
 
@@ -102,7 +104,7 @@ func mostrarEstacionesDisponibles() {
 }
 // 1: Consultar estacion
 func consultarEstacion() {
-    mostrarEstacionesDisponibles() // muestra las opciones antes de pedir el nombre
+    mostrarEstacionesDisponibles() // muestra las estaciones disponibles
     print("Ingresa el nombre de la estacion:")
     let nombreBuscado = readLine() ?? ""
 
@@ -110,6 +112,14 @@ func consultarEstacion() {
         let linea = mapaLineas[estacion.lineaId]
         print("\n===== \(estacion.nombre) =====")
         print("Linea: \(linea?.nombre ?? "") (\(linea?.color ?? ""))")
+
+        // Mostrar tarifas
+        if let linea = linea {
+            if linea.id == "L1" {
+                print("Tarifa adulto: S/ \(String(format: "%.2f", linea.tarifaAdulto))")
+                print("Tarifa medio/universitario/escolar: S/ \(String(format: "%.2f", linea.tarifaMedio))")
+            }
+        }
         print("Avenidas cercanas: \(estacion.avenidasCercanas.joined(separator: ", "))")
         print("Puntos de interes: \(estacion.puntosDeInteres.joined(separator: ", "))")
         if estacion.conexiones.isEmpty {
