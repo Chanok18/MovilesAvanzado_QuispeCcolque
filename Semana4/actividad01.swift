@@ -19,3 +19,14 @@ for curso in cursos {
 }
 let igv = subtotal * 0.18
 let totalConIGV = subtotal + igv
+let cumpleTresCursos = cursos.count >= 3 // regla: 3 o mas cursos distintos
+
+var descuentoCantidad = 0.0
+if cumpleTresCursos {
+    descuentoCantidad = totalConIGV * 0.10 // 10% del total con IGV
+}
+var descuentoTecsup = 0.0
+if esAlumnoTecsup && cumpleTresCursos {
+    descuentoTecsup = 400.00 // descuento fijo solo si es alumno Tecsup y compra 3+ cursos
+}
+let totalFinal = totalConIGV - descuentoCantidad - descuentoTecsup
