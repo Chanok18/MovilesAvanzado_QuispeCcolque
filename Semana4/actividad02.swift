@@ -41,3 +41,22 @@ class ClienteNatural: Cliente {
         super.mostrarDatos() // reusa el metodo base para el resto de los datos
     }
 }
+class ClienteJuridico: Cliente {
+    let razonSocial: String
+    let ruc: String
+    let representanteLegal: String
+
+    init(razonSocial: String, ruc: String, representanteLegal: String, codigo: String, direccion: String, fechaDeRegistro: String, numeroCuenta: String, montoMinimoApertura: Double) {
+        self.razonSocial = razonSocial
+        self.ruc = ruc
+        self.representanteLegal = representanteLegal
+        super.init(codigo: codigo, direccion: direccion, fechaDeRegistro: fechaDeRegistro, numeroCuenta: numeroCuenta, montoMinimoApertura: montoMinimoApertura)
+    }
+    override func mostrarDatos() {
+        print("Cliente Jurídico:")
+        print("Razón Social: \(razonSocial)")
+        print("RUC: \(ruc)")
+        print("Representante Legal: \(representanteLegal)")
+        super.mostrarDatos()
+    }
+}
