@@ -5,8 +5,8 @@ struct Curso {
     let cantidad: Int
 }
 
-let nombre = "Juan Leon"
-let dni = "78965412"
+let nombre = "Kevin Quispe Ccolque"
+let dni = "60778942"
 let esAlumnoTecsup = true
 let cursos: [Curso] = [
     Curso(nombre: "Swift Avanzado", precio: 450.00, cantidad: 1),
@@ -76,7 +76,7 @@ func mostrarFactura() {
     print("DNI: \(dni)")
 
     if esAlumnoTecsup {
-        print("Alumno de Tecsup: Sí ✅")
+        print("Alumno de Tecsup: Sí ")
     } else {
         print("Alumno de Tecsup: No")
     }
@@ -95,12 +95,12 @@ func mostrarFactura() {
     print("Total con IGV: S/ \(String(format: "%.2f", totalConIGV))")
 
     if desc10 > 0 {
-        print("Descuento 10% por cantidad: -S/ \(String(format: "%.2f", desc10)) ✅")
+        print("Descuento 10% por cantidad: -S/ \(String(format: "%.2f", desc10)) ")
     }
     if descTecsup > 0 {
-        print("Descuento especial Tecsup: -S/ \(String(format: "%.2f", descTecsup)) ✅")
+        print("Descuento especial Tecsup: -S/ \(String(format: "%.2f", descTecsup)) ")
     }
     print("----------------------------")
-    print("💰 TOTAL FINAL A PAGAR: S/ \(String(format: "%.2f", totalFinal))")
+    print("TOTAL FINAL A PAGAR: S/ \(String(format: "%.2f", totalFinal))")
 }
 mostrarFactura()

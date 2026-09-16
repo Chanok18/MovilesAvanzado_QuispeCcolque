@@ -24,11 +24,11 @@ class Cliente {
 
     // Imprime solo los datos comunes. Las subclases lo sobreescriben.
     func mostrarDatos() {
-        print("📄 Código: \(codigo)")
-        print("📍 Dirección: \(direccion)")
-        print("📅 Fecha de registro: \(fechaDeRegistro)")
-        print("🏦 N° Cuenta: \(numeroCuenta)")
-        print("💰 Monto mínimo de apertura: S/ \(montoFormateado())")
+        print("Código: \(codigo)")
+        print("Dirección: \(direccion)")
+        print("Fecha de registro: \(fechaDeRegistro)")
+        print("N° Cuenta: \(numeroCuenta)")
+        print("Monto mínimo de apertura: S/ \(montoFormateado())")
     }
 }
 
@@ -66,7 +66,7 @@ class ClienteJuridico: Cliente {
     }
 
     override func mostrarDatos() {
-        print("🏢 Cliente Jurídico:")
+        print("Cliente Jurídico:")
         print("Razón Social: \(razonSocial)")
         print("RUC: \(ruc)")
         print("Representante Legal: \(representanteLegal)")
@@ -89,7 +89,7 @@ class Banco {
     }
 
     func mostrarCartera() {
-        print("🏛 CARTERA DE CLIENTES - \(nombre)")
+        print("CARTERA DE CLIENTES - \(nombre)")
         print("----------------------------")
 
         for cliente in clientes {
@@ -113,7 +113,7 @@ let clienteNatural = ClienteNatural(
 )
 let clienteJuridico = ClienteJuridico(
     razonSocial: "Soluciones SAC",
-    ruc: "20123456789",
+    ruc: "87654321",
     representanteLegal: "María León",
     codigo: "C002",
     direccion: "Jr. Empresas 456",
