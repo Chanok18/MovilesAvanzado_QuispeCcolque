@@ -1,12 +1,14 @@
 import Foundation
-//ACTIVIDAD2:HERENCIA-CLIENTES BANCARIOS
 
+//ACTIVIDAD PROPUESTA 02
+// Clase base con los datos comunes a todo cliente del banco.
 class Cliente {
     let codigo: String
     let direccion: String
     let fechaDeRegistro: String
     let numeroCuenta: String
     let montoMinimoApertura: Double
+
     init(codigo: String, direccion: String, fechaDeRegistro: String, numeroCuenta: String, montoMinimoApertura: Double) {
         self.codigo = codigo
         self.direccion = direccion
@@ -15,15 +17,22 @@ class Cliente {
         self.montoMinimoApertura = montoMinimoApertura
     }
 
-    // metodo base, las subclases lo sobreescriben para agregar sus propios datos
+    // Formatea el monto para no repetir el String(format:) en cada línea.
+    func montoFormateado() -> String {
+        return String(format: "%.2f", montoMinimoApertura)
+    }
+
+    // Imprime solo los datos comunes. Las subclases lo sobreescriben.
     func mostrarDatos() {
-        print("Código: \(codigo)")
-        print("Dirección: \(direccion)")
-        print("Fecha de registro: \(fechaDeRegistro)")
-        print("N° Cuenta: \(numeroCuenta)")
-        print("Monto mínimo de apertura: S/ \(String(format: "%.2f", montoMinimoApertura))")
+        print("📄 Código: \(codigo)")
+        print("📍 Dirección: \(direccion)")
+        print("📅 Fecha de registro: \(fechaDeRegistro)")
+        print("🏦 N° Cuenta: \(numeroCuenta)")
+        print("💰 Monto mínimo de apertura: S/ \(montoFormateado())")
     }
 }
+
+// Cliente persona: agrega nombre completo y DNI.
 class ClienteNatural: Cliente {
     let nombreCompleto: String
     let dni: String
@@ -31,6 +40,7 @@ class ClienteNatural: Cliente {
     init(nombreCompleto: String, dni: String, codigo: String, direccion: String, fechaDeRegistro: String, numeroCuenta: String, montoMinimoApertura: Double) {
         self.nombreCompleto = nombreCompleto
         self.dni = dni
+        // super.init va al final: primero se inicializan las propiedades propias.
         super.init(codigo: codigo, direccion: direccion, fechaDeRegistro: fechaDeRegistro, numeroCuenta: numeroCuenta, montoMinimoApertura: montoMinimoApertura)
     }
 
@@ -38,9 +48,11 @@ class ClienteNatural: Cliente {
         print("👤 Cliente Natural:")
         print("Nombre: \(nombreCompleto)")
         print("DNI: \(dni)")
-        super.mostrarDatos() // reusa el metodo base para el resto de los datos
+        super.mostrarDatos() // reutiliza la impresión de los datos comunes
     }
 }
+
+// Cliente empresa: agrega razón social, RUC y representante legal.
 class ClienteJuridico: Cliente {
     let razonSocial: String
     let ruc: String
@@ -52,24 +64,64 @@ class ClienteJuridico: Cliente {
         self.representanteLegal = representanteLegal
         super.init(codigo: codigo, direccion: direccion, fechaDeRegistro: fechaDeRegistro, numeroCuenta: numeroCuenta, montoMinimoApertura: montoMinimoApertura)
     }
+
     override func mostrarDatos() {
-        print("Cliente Jurídico:")
+        print("🏢 Cliente Jurídico:")
         print("Razón Social: \(razonSocial)")
         print("RUC: \(ruc)")
         print("Representante Legal: \(representanteLegal)")
         super.mostrarDatos()
     }
 }
-//SIMULACION
-let clientes: [Cliente] = [
-    ClienteNatural(nombreCompleto: "Juan Pérez", dni: "12345678",
-        codigo: "C001", direccion: "Av. Lima 123", fechaDeRegistro: "2025-04-03",
-        numeroCuenta: "001-2025-000123", montoMinimoApertura: 500.00),
-    ClienteJuridico(razonSocial: "Soluciones SAC", ruc: "20123456789", representanteLegal: "María León",
-        codigo: "C002", direccion: "Jr. Empresas 456", fechaDeRegistro: "2025-04-01",
-        numeroCuenta: "001-2025-000456", montoMinimoApertura: 3000.00)
-]
-for cliente in clientes {
-    cliente.mostrarDatos() // swift decide automaticamente cual version usar (polimorfismo)
-    print("------------------------")
+
+// Agrupa a los clientes y se encarga de listarlos.
+class Banco {
+    let nombre: String
+    var clientes: [Cliente]
+
+    init(nombre: String) {
+        self.nombre = nombre
+        self.clientes = []
+    }
+
+    func registrarCliente(cliente: Cliente) {
+        clientes.append(cliente)
+    }
+
+    func mostrarCartera() {
+        print("🏛 CARTERA DE CLIENTES - \(nombre)")
+        print("----------------------------")
+
+        for cliente in clientes {
+            cliente.mostrarDatos() // Swift decide en ejecución qué versión usar (polimorfismo)
+            print("----------------------------")
+        }
+
+        print("Total de clientes registrados: \(clientes.count)")
+    }
 }
+
+let banco = Banco(nombre: "Banco Tecsup")
+let clienteNatural = ClienteNatural(
+    nombreCompleto: "Juan Pérez",
+    dni: "12345678",
+    codigo: "C001",
+    direccion: "Av. Lima 123",
+    fechaDeRegistro: "2025-04-03",
+    numeroCuenta: "001-2025-000123",
+    montoMinimoApertura: 500.0
+)
+let clienteJuridico = ClienteJuridico(
+    razonSocial: "Soluciones SAC",
+    ruc: "20123456789",
+    representanteLegal: "María León",
+    codigo: "C002",
+    direccion: "Jr. Empresas 456",
+    fechaDeRegistro: "2025-04-01",
+    numeroCuenta: "001-2025-000456",
+    montoMinimoApertura: 3000.0
+)
+
+banco.registrarCliente(cliente: clienteNatural)
+banco.registrarCliente(cliente: clienteJuridico)
+banco.mostrarCartera()
