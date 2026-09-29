@@ -5,6 +5,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var txtCapital: UITextField!
     @IBOutlet weak var txtInteresAnual: UITextField!
     @IBOutlet weak var txtAnios: UITextField!
+    
     @IBOutlet weak var lblCuotaMensual: UILabel!
     @IBOutlet weak var lblMontoTotal: UILabel!
 
@@ -25,18 +26,18 @@ class ViewController: UIViewController {
             return
         }
 
-        // 3.Calcular tasa mensualy número total de pagos
+        // 3. Calcular tasa mensual (r) y número total de pagos (n)
         let r = (tasaAnual / 100) / 12
         let n = anios * 12
 
-        // 4.Aplicar fórmula de cuota mensual:
+        // 4. Aplicar fórmula de cuota mensual: M = P * [ r * (1+r)^n / ((1+r)^n - 1) ]
         let factor = pow(1 + r, n)
         let M = P * ((r * factor) / (factor - 1))
 
-        // 5.Calcular el monto total a pagar
+        // 5. Calcular el monto total a pagar
         let montoTotal = M * n
 
-        // 6.Mostrar resultados
+        // 6. Mostrar resultados formateados a 2 decimales
         lblCuotaMensual.text = String(format: "Cuota mensual: $%.2f", M)
         lblMontoTotal.text = String(format: "Monto total a pagar: $%.2f", montoTotal)
     }
