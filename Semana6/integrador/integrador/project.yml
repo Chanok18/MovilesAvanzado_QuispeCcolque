@@ -1,0 +1,32 @@
+name: integrador
+
+options:
+  bundleIdPrefix: com.tecsup
+
+targets:
+  integrador:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+
+    sources:
+      - path: .
+
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.tecsup.integrador
+        SWIFT_VERSION: "5.0"
+
+    info:
+      path: Info.plist
+      properties:
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        UIMainStoryboardFile: Main
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: Default Configuration
+                UISceneDelegateClassName: $(PRODUCT_MODULE_NAME).SceneDelegate
+                UISceneStoryboardFile: Main
+        UILaunchStoryboardName: LaunchScreen
