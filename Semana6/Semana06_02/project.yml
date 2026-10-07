@@ -1,0 +1,25 @@
+name: Semana06_02
+
+options:
+  bundleIdPrefix: com.tecsup
+  deploymentTarget:
+    iOS: "15.0"
+
+targets:
+  Semana06_02:
+    type: application
+    platform: iOS
+
+    sources:
+      - path: .
+
+    resources:
+      - path: Assets.xcassets
+      - path: Base.lproj/Main.storyboard
+
+    info:
+      path: Info.plist
+
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.tecsup.Semana06_02
+      INFOPLIST_FILE: Info.plist

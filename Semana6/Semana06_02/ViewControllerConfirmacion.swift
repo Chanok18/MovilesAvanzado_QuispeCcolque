@@ -1,9 +1,4 @@
 //
-//  ViewControllerConfirmacion.swift
-//  Semana06_02
-//
-//  Created by Junior Cueva on 1/10/26.
-//
 
 import UIKit
 
