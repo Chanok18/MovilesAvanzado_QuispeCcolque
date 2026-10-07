@@ -1,13 +1,4 @@
-
-
 import UIKit
-
-// Por que class y no struct:
-// VentaModel se crea en la pantalla "Nueva Venta" y se entrega a la pantalla
-// "Resultado" en prepare(for:sender:). Al ser class es un tipo por referencia:
-// las dos pantallas apuntan al mismo objeto (no se copia) y ademas puede heredar
-// de NSObject, igual que ClienteModel en el Ejercicio 2. Un struct no puede
-// heredar de NSObject y se copiaria en cada asignacion.
 class VentaModel: NSObject {
     var subtotal: Double = 0
     var igv: Double = 0

@@ -2,7 +2,16 @@
 
 Calculadora de Venta a Plazos de Electrodoméstico
 
-Herramienta de IA usada: Claude
+### Requerimientos de la calculadora
+
+| Requerimiento  | Descripción                                                                   |
+| -------------- | ----------------------------------------------------------------------------- |
+| Datos de venta | Ingresar producto, precio, cantidad, meses y tasa de interés mensual.         |
+| Subtotal       | Se obtiene multiplicando el precio por la cantidad.                           |
+| IGV            | Se aplica el 18 % sobre el subtotal.                                          |
+| Intereses      | Se calculan según la tasa mensual y los meses de pago.                        |
+| Resultado      | Mostrar subtotal, IGV, monto base, intereses, total y cuota mensual en soles. |
+| Almacenamiento | Los datos solo se utilizan para realizar el cálculo y no se guardan.          |
 
 ## Prompt (estructura CTRFE)
 

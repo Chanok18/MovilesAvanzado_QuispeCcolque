@@ -2,28 +2,18 @@ name: CalculadoraVenta
 
 options:
   bundleIdPrefix: com.tecsup
-
-settings:
-  base:
-    SWIFT_VERSION: 5.0
+  deploymentTarget:
+    iOS: "15.0"
 
 targets:
   CalculadoraVenta:
     type: application
     platform: iOS
-    deploymentTarget: "15.0"
 
     sources:
       - path: .
 
-    resources:
-      - path: Assets.xcassets
-      - path: Base.lproj/Main.storyboard
-
-    info:
-      path: Info.plist
-
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.tecsup.CalculadoraVenta
-        INFOPLIST_FILE: Info.plist
+        SWIFT_VERSION: "5.0"

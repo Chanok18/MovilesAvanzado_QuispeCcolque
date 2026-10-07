@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		144ECE87F7107CFE2657A459 /* NuevaVentaViewController.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7C5493A28562BE7BCBA989CD /* NuevaVentaViewController.txt */; };
 		1C742DFF72B5CEA6658BFB9F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C36BDBCD3804689A9AAFC84 /* SceneDelegate.swift */; };
 		283A7F6370409D6E69433088 /* VentaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9BADF6C94BB93A2B7B494E /* VentaModel.swift */; };
 		4C956C2297CADB07058CED63 /* project.yml in Resources */ = {isa = PBXBuildFile; fileRef = B6FA01AE6D9D191DAB58E94E /* project.yml */; };
@@ -23,6 +24,7 @@
 		0FF857A356D1CBBB54FD4E3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2F9BADF6C94BB93A2B7B494E /* VentaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VentaModel.swift; sourceTree = "<group>"; };
 		4C36BDBCD3804689A9AAFC84 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		7C5493A28562BE7BCBA989CD /* NuevaVentaViewController.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NuevaVentaViewController.txt; sourceTree = "<group>"; };
 		80FC71860868316F8EC499C4 /* ResultadoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultadoViewController.swift; sourceTree = "<group>"; };
 		843DEBD5B3C77BF33130DC95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8FFE5EA6B189E9E384FCFA05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 				843DEBD5B3C77BF33130DC95 /* Assets.xcassets */,
 				8FFE5EA6B189E9E384FCFA05 /* Info.plist */,
 				03068E0D37E873A5E8672D8C /* NuevaVentaViewController.swift */,
+				7C5493A28562BE7BCBA989CD /* NuevaVentaViewController.txt */,
 				B6FA01AE6D9D191DAB58E94E /* project.yml */,
 				80FC71860868316F8EC499C4 /* ResultadoViewController.swift */,
 				4C36BDBCD3804689A9AAFC84 /* SceneDelegate.swift */,
@@ -126,6 +129,7 @@
 				6EF35D0FC70563B73A8A3ED0 /* Assets.xcassets in Resources */,
 				C0F410E4B50CB31665918DAF /* LaunchScreen.storyboard in Resources */,
 				579F071C58D7EECFFD03F4C4 /* Main.storyboard in Resources */,
+				144ECE87F7107CFE2657A459 /* NuevaVentaViewController.txt in Resources */,
 				4C956C2297CADB07058CED63 /* project.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,6 +216,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -228,13 +233,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tecsup.CalculadoraVenta;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -245,13 +250,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tecsup.CalculadoraVenta;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -307,6 +312,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
