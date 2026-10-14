@@ -1,0 +1,7 @@
+
+# Archivos de macOS
+.DS_Store
+
+# Archivos personales de Xcode
+**/xcuserdata/
+**/*.xcuserstate
