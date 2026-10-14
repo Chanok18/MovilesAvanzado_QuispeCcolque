@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="culturas-navigation">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Culturas peruanas-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Tarea1" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="92" estimatedRowHeight="92" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="01g-QC-viL">
+                                <rect key="frame" x="0.0" y="224" width="393" height="560"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="celdaCultura" textLabel="yAL-hY-Ro9" detailTextLabel="YVL-3I-eYN" style="IBUITableViewCellStyleSubtitle" id="eWV-OO-ro0">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="92"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eWV-OO-ro0" id="2wy-er-ceH">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="92"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yAL-hY-Ro9">
+                                                    <rect key="frame" x="20" y="27.999999999999996" width="25" height="14.333333333333334"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YVL-3I-eYN">
+                                                    <rect key="frame" x="19.999999999999996" y="44.333333333333336" width="52.666666666666664" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="nGN-gg-uEw"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="w39-2T-6HX"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="01g-QC-viL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="7eQ-1j-lY5"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="01g-QC-viL" secondAttribute="bottom" id="CUx-bk-LpX"/>
+                            <constraint firstItem="01g-QC-viL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="SDL-w0-hhB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="01g-QC-viL" secondAttribute="trailing" id="jlV-Rc-S8K"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Culturas peruanas" largeTitleDisplayMode="always" id="list-navigation-item"/>
+                    <connections>
+                        <segue destination="detail-vc" kind="show" identifier="mostrarDetalleCultura" id="list-to-detail"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="27" y="75"/>
+        </scene>
+        <!--Detalle-->
+        <scene sceneID="detail-scene">
+            <objects>
+                <viewController storyboardIdentifier="DetalleCultura" id="detail-vc" customClass="DetalleCulturaViewController" customModule="Tarea1" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="detail-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="detail-scroll">
+                                <rect key="frame" x="0.0" y="224" width="393" height="560"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="detail-content">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="426"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="detail-stack">
+                                                <rect key="frame" x="24" y="24" width="345" height="378"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="detail-image">
+                                                        <rect key="frame" x="0.0" y="0.0" width="345" height="230"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="230" id="detail-image-height"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre de la cultura" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="detail-name">
+                                                        <rect key="frame" x="0.0" y="249.99999999999997" width="345" height="33.666666666666657"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Región de la cultura" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="detail-region">
+                                                        <rect key="frame" x="0.0" y="303.66666666666663" width="345" height="14"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubheadline"/>
+                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descripción de la cultura seleccionada." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="detail-description">
+                                                        <rect key="frame" x="0.0" y="337.66666666666663" width="345" height="20.333333333333314"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="detail-credit">
+                                                        <rect key="frame" x="0.0" y="378" width="345" height="0.0"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="detail-stack" secondAttribute="bottom" constant="24" id="detail-stack-bottom"/>
+                                            <constraint firstItem="detail-stack" firstAttribute="leading" secondItem="detail-content" secondAttribute="leading" constant="24" id="detail-stack-leading"/>
+                                            <constraint firstItem="detail-stack" firstAttribute="top" secondItem="detail-content" secondAttribute="top" constant="24" id="detail-stack-top"/>
+                                            <constraint firstAttribute="trailing" secondItem="detail-stack" secondAttribute="trailing" constant="24" id="detail-stack-trailing"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="detail-content" firstAttribute="bottom" secondItem="detail-content-guide" secondAttribute="bottom" id="detail-content-bottom"/>
+                                    <constraint firstItem="detail-content" firstAttribute="leading" secondItem="detail-content-guide" secondAttribute="leading" id="detail-content-leading"/>
+                                    <constraint firstItem="detail-content" firstAttribute="top" secondItem="detail-content-guide" secondAttribute="top" id="detail-content-top"/>
+                                    <constraint firstItem="detail-content" firstAttribute="trailing" secondItem="detail-content-guide" secondAttribute="trailing" id="detail-content-trailing"/>
+                                    <constraint firstItem="detail-content" firstAttribute="width" secondItem="detail-frame-guide" secondAttribute="width" id="detail-content-width"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="detail-content-guide"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="detail-frame-guide"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="detail-safe"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="detail-scroll" firstAttribute="bottom" secondItem="detail-safe" secondAttribute="bottom" id="detail-scroll-bottom"/>
+                            <constraint firstItem="detail-scroll" firstAttribute="leading" secondItem="detail-safe" secondAttribute="leading" id="detail-scroll-leading"/>
+                            <constraint firstItem="detail-scroll" firstAttribute="top" secondItem="detail-safe" secondAttribute="top" id="detail-scroll-top"/>
+                            <constraint firstItem="detail-scroll" firstAttribute="trailing" secondItem="detail-safe" secondAttribute="trailing" id="detail-scroll-trailing"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Detalle" id="detail-nav-item"/>
+                    <connections>
+                        <outlet property="creditoImagen" destination="detail-credit" id="outlet-creditoImagen"/>
+                        <outlet property="descripcionCultura" destination="detail-description" id="outlet-descripcionCultura"/>
+                        <outlet property="fotoCultura" destination="detail-image" id="outlet-fotoCultura"/>
+                        <outlet property="nombreCultura" destination="detail-name" id="outlet-nombreCultura"/>
+                        <outlet property="regionCultura" destination="detail-region" id="outlet-regionCultura"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="detail-responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="800" y="75"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="navigation-scene">
+            <objects>
+                <navigationController id="culturas-navigation" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="culturas-navigation-bar">
+                        <rect key="frame" x="0.0" y="118" width="393" height="106"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="navigation-root"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="navigation-responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-750" y="75"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
