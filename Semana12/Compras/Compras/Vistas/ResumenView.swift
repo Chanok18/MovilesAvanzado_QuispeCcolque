@@ -75,13 +75,25 @@ struct ResumenView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     // ① Saludo con la sesion
                     if let usuario = sesion.usuario {
-                        HStack(spacing: 12) {
-                            AvatarCirculo(iniciales: usuario.iniciales, tamano: 48)
-                            VStack(alignment: .leading) {
-                                Text("Hola, \(usuario.nombre)").font(.title3.bold())
-                                Text(usuario.rol).foregroundStyle(.secondary)
+                        HStack(spacing: 14) {
+                            AvatarCirculo(iniciales: usuario.iniciales, tamano: 54)
+                                .overlay(Circle().stroke(.white.opacity(0.8), lineWidth: 2))
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Hola, \(usuario.nombre) 👋")
+                                    .font(.system(.title3, design: .rounded).weight(.bold))
+                                    .foregroundStyle(.white)
+                                Text(usuario.rol)
+                                    .font(.subheadline)
+                                    .foregroundStyle(.white.opacity(0.85))
                             }
+                            Spacer()
                         }
+                        .padding()
+                        .background(
+                            LinearGradient.dorado,
+                            in: RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        )
+                        .shadow(color: Color.accentColor.opacity(0.3), radius: 12, y: 6)
                     }
 
                     LazyVGrid(columns: columnas, spacing: 12) {
@@ -116,7 +128,8 @@ struct ResumenView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
-                        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 16))
+                        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                        .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
                     }
 
                     // Valor agregado: historial con todas las compras ("ver todo")
@@ -134,7 +147,8 @@ struct ResumenView: View {
                                 .foregroundStyle(.secondary)
                         }
                         .padding()
-                        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 16))
+                        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                        .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
                     }
                     .buttonStyle(.plain)
 
@@ -162,12 +176,13 @@ struct ResumenView: View {
                         }
                     }
                     .padding()
-                    .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 16))
+                    .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                        .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
                 }
                 .padding()
             }
-            .background(Color(.systemGroupedBackground))
             .navigationTitle("Resumen")
+            .fondoPlateado()
             .conAvatar()
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -221,15 +236,18 @@ struct TarjetaIndicador: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             Image(systemName: icono)
-                .foregroundStyle(color)
-                .font(.title3)
+                .font(.headline)
+                .foregroundStyle(.white)
+                .frame(width: 36, height: 36)
+                .background(color.gradient, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                .padding(.bottom, 2)
             Text(titulo)
-                .font(.caption)
+                .font(.caption.weight(.medium))
                 .foregroundStyle(.secondary)
             Text(valor)
-                .font(.headline)
+                .font(.system(.title3, design: .rounded).weight(.bold))
                 .monospacedDigit()
-                .minimumScaleFactor(0.7)
+                .minimumScaleFactor(0.6)
                 .lineLimit(1)
             Text(detalle)
                 .font(.caption2)
@@ -237,6 +255,15 @@ struct TarjetaIndicador: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 16))
+        .background(
+            LinearGradient(colors: [color.opacity(0.12), Color(.secondarySystemGroupedBackground)],
+                           startPoint: .topLeading, endPoint: .bottomTrailing),
+            in: RoundedRectangle(cornerRadius: 18, style: .continuous)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                .stroke(color.opacity(0.2), lineWidth: 1)
+        )
+        .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
     }
 }

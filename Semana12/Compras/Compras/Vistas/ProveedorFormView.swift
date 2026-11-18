@@ -58,6 +58,7 @@ struct ProveedorFormView: View {
                 }
             }
             .navigationTitle(proveedor == nil ? "Nuevo proveedor" : "Editar proveedor")
+            .fondoPlateado()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

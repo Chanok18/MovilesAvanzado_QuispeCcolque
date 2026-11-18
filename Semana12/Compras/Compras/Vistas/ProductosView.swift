@@ -20,12 +20,22 @@ struct ProductosView: View {
     @State private var productoAEditar: Producto?
     @State private var mensajeBorrado: String?
 
-    /// ② Busqueda por nombre o categoria
+    /// Categoria elegida en el filtro (nil = Todas)
+    @State private var categoriaFiltro: String?
+
+    /// Categorias que tienen al menos un producto (para los chips)
+    private var categoriasDisponibles: [String] {
+        Array(Set(productos.map(\.categoria))).sorted()
+    }
+
+    /// ② Busqueda por nombre o categoria + filtro por categoria
     private var productosFiltrados: [Producto] {
-        if busqueda.isEmpty { return productos }
-        return productos.filter {
-            $0.nombre.localizedCaseInsensitiveContains(busqueda)
-                || $0.categoria.localizedCaseInsensitiveContains(busqueda)
+        productos.filter { producto in
+            let pasaCategoria = categoriaFiltro == nil || producto.categoria == categoriaFiltro
+            let pasaBusqueda = busqueda.isEmpty
+                || producto.nombre.localizedCaseInsensitiveContains(busqueda)
+                || producto.categoria.localizedCaseInsensitiveContains(busqueda)
+            return pasaCategoria && pasaBusqueda
         }
     }
 
@@ -37,6 +47,31 @@ struct ProductosView: View {
     var body: some View {
         NavigationStack {
             List {
+                // Filtro por categoria con chips
+                if !categoriasDisponibles.isEmpty {
+                    Section {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 8) {
+                                ChipCategoria(titulo: "Todas", icono: "square.grid.2x2",
+                                              seleccionado: categoriaFiltro == nil) {
+                                    categoriaFiltro = nil
+                                }
+                                ForEach(categoriasDisponibles, id: \.self) { categoria in
+                                    ChipCategoria(titulo: categoria,
+                                                  icono: Producto.icono(categoria: categoria),
+                                                  seleccionado: categoriaFiltro == categoria) {
+                                        categoriaFiltro = categoriaFiltro == categoria ? nil : categoria
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 4)
+                        }
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(Color.clear)
+                    }
+                }
+
                 Section {
                     HStack {
                         Label("Valor del inventario", systemImage: "banknote")
@@ -71,6 +106,7 @@ struct ProductosView: View {
             }
             .searchable(text: $busqueda, prompt: "Buscar producto o categoría")
             .navigationTitle("Productos")
+            .fondoPlateado()
             .conAvatar()
             .toolbar {
                 // ① Boton + solo para el supervisor
@@ -114,6 +150,29 @@ struct ProductosView: View {
     }
 }
 
+/// Chip del filtro de categorias
+struct ChipCategoria: View {
+    let titulo: String
+    let icono: String
+    let seleccionado: Bool
+    let accion: () -> Void
+
+    var body: some View {
+        Button(action: accion) {
+            Label(titulo, systemImage: icono)
+                .font(.subheadline.weight(.semibold))
+                .padding(.horizontal, 14)
+                .padding(.vertical, 8)
+                .foregroundStyle(seleccionado ? .white : Color.accentColor)
+                .background(seleccionado ? AnyShapeStyle(Color.accentColor.gradient)
+                                         : AnyShapeStyle(Color.accentColor.opacity(0.12)),
+                            in: Capsule())
+        }
+        .buttonStyle(.plain)
+        .animation(.snappy, value: seleccionado)
+    }
+}
+
 /// ③ Fila con costo promedio y stock en color
 struct FilaProducto: View {
     let producto: Producto
@@ -123,7 +182,7 @@ struct FilaProducto: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(producto.nombre)
                     .font(.headline)
-                Text(producto.categoria)
+                Label(producto.categoria, systemImage: Producto.icono(categoria: producto.categoria))
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 Text("Costo prom. \(producto.costoPromedio.soles)")

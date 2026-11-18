@@ -22,19 +22,23 @@ struct LoginView: View {
             ScrollView {
                 VStack(spacing: 24) {
                     // ① Logo y nombre
-                    VStack(spacing: 8) {
+                    VStack(spacing: 10) {
                         Image(systemName: "shippingbox.and.arrow.backward.fill")
-                            .font(.system(size: 56))
+                            .font(.system(size: 52, weight: .semibold))
                             .foregroundStyle(.white)
-                            .frame(width: 100, height: 100)
-                            .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 24))
+                            .frame(width: 110, height: 110)
+                            .background(
+                                LinearGradient.dorado,
+                                in: RoundedRectangle(cornerRadius: 30, style: .continuous)
+                            )
+                            .shadow(color: Color.accentColor.opacity(0.45), radius: 18, y: 10)
                         Text("Compras")
-                            .font(.largeTitle.bold())
+                            .font(.system(size: 38, weight: .heavy, design: .rounded))
                         Text("Distribuidora · Proveedores y costos")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
-                    .padding(.top, 40)
+                    .padding(.top, 48)
 
                     VStack(spacing: 14) {
                         // ② Usuario
@@ -58,17 +62,22 @@ struct LoginView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
+                    .padding(18)
+                    .background(Color(.systemBackground), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                    .shadow(color: .black.opacity(0.08), radius: 16, y: 6)
 
                     // ⑤ Ingresar
                     Button {
                         ingresar()
                     } label: {
-                        Text("Ingresar")
+                        Label("Ingresar", systemImage: "arrow.right.circle.fill")
                             .font(.headline)
                             .frame(maxWidth: .infinity)
-                            .padding(.vertical, 6)
+                            .padding(.vertical, 10)
                     }
                     .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.capsule)
+                    .shadow(color: Color.accentColor.opacity(0.35), radius: 10, y: 5)
                     .disabled(usuario.isEmpty || clave.isEmpty)
 
                     // ⑥ Ir a Crear cuenta
@@ -79,6 +88,10 @@ struct LoginView: View {
                 }
                 .padding(24)
             }
+            .background(
+                LinearGradient.plateado
+                    .ignoresSafeArea()
+            )
             .navigationDestination(isPresented: $mostrarRegistro) {
                 RegistroView()
             }
@@ -105,12 +118,16 @@ struct CampoLogin: ViewModifier {
     func body(content: Content) -> some View {
         HStack(spacing: 10) {
             Image(systemName: icono)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.accentColor)
                 .frame(width: 22)
             content
         }
         .padding(14)
-        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .stroke(Color.accentColor.opacity(0.15), lineWidth: 1)
+        )
     }
 }
 

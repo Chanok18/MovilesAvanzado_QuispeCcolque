@@ -46,6 +46,7 @@ struct TodasComprasView: View {
             }
             .searchable(text: $busqueda, prompt: "Buscar por proveedor o comprador")
             .navigationTitle("Todas las compras")
+            .fondoPlateado()
             .navigationBarTitleDisplayMode(.inline)
     }
 }

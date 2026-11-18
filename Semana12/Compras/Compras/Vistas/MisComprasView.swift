@@ -38,6 +38,7 @@ struct MisComprasView: View {
                 }
                 .searchable(text: $busqueda, prompt: "Buscar por proveedor")
                 .navigationTitle("Mis compras")
+                .fondoPlateado()
                 .conAvatar()
         }
     }

@@ -94,6 +94,7 @@ struct RegistroView: View {
         }
         // ① Titulo y volver al login (boton atras del NavigationStack)
         .navigationTitle("Crear cuenta")
+        .fondoPlateado()
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {

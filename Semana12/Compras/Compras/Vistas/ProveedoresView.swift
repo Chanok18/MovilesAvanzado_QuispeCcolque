@@ -49,6 +49,7 @@ struct ProveedoresView: View {
             }
             .searchable(text: $busqueda, prompt: "Buscar por nombre o RUC")
             .navigationTitle("Proveedores")
+            .fondoPlateado()
             .conAvatar()
             .toolbar {
                 // ① Boton + solo supervisor
@@ -143,9 +144,10 @@ struct Insignia: View {
     var body: some View {
         Text(texto)
             .font(.caption.bold())
-            .padding(.horizontal, 8)
+            .padding(.horizontal, 9)
             .padding(.vertical, 4)
             .foregroundStyle(color)
             .background(color.opacity(0.15), in: Capsule())
+            .overlay(Capsule().stroke(color.opacity(0.3), lineWidth: 0.5))
     }
 }

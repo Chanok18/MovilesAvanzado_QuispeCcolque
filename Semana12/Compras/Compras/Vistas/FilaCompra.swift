@@ -19,12 +19,17 @@ struct FilaCompra: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            HStack(alignment: .firstTextBaseline) {
+            HStack(alignment: .center, spacing: 10) {
+                Image(systemName: "shippingbox.fill")
+                    .font(.subheadline)
+                    .foregroundStyle(colorEstado)
+                    .frame(width: 32, height: 32)
+                    .background(colorEstado.opacity(0.15), in: RoundedRectangle(cornerRadius: 9, style: .continuous))
                 Text(compra.producto?.nombre ?? "Producto")
                     .font(.headline)
                 Spacer()
                 Text(compra.total.soles)
-                    .font(.headline)
+                    .font(.system(.headline, design: .rounded))
                     .monospacedDigit()
             }
 

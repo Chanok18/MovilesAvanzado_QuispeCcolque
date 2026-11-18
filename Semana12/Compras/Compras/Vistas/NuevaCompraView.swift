@@ -130,6 +130,7 @@ struct NuevaCompraView: View {
                 }
             }
             .navigationTitle("Nueva compra")
+            .fondoPlateado()
             .conAvatar()
             .onChange(of: producto) { _, nuevo in
                 // Sugerimos el costo promedio actual como costo unitario

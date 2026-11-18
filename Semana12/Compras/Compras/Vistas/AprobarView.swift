@@ -33,7 +33,6 @@ struct AprobarView: View {
                 }
                 .padding()
             }
-            .background(Color(.systemGroupedBackground))
             .overlay {
                 if pendientes.isEmpty {
                     ContentUnavailableView("Nada por aprobar", systemImage: "checkmark.seal",
@@ -41,6 +40,7 @@ struct AprobarView: View {
                 }
             }
             .navigationTitle("Aprobar")
+            .fondoPlateado()
             .conAvatar()
             .sheet(item: $compraARechazar) { compra in
                 RechazoView(compra: compra)
@@ -190,6 +190,7 @@ struct RechazoView: View {
                 }
             }
             .navigationTitle("Rechazar compra")
+            .fondoPlateado()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

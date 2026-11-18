@@ -30,3 +30,26 @@ final class Producto {
     /// Stock bajo (5 o menos): se avisa en el Resumen del supervisor
     var tieneStockBajo: Bool { ReglasCompra.esStockBajo(stock) }
 }
+
+// MARK: - Categorias
+
+extension Producto {
+    /// Categorias predefinidas para elegir al crear o editar un producto
+    static let categorias = ["Cómputo", "Accesorios", "Electrónica", "Oficina",
+                             "Limpieza", "Abarrotes", "Bebidas", "Ferretería", "Otros"]
+
+    /// Icono para cada categoria (los chips del filtro y el formulario)
+    static func icono(categoria: String) -> String {
+        switch categoria {
+        case "Cómputo": return "desktopcomputer"
+        case "Accesorios": return "computermouse"
+        case "Electrónica": return "bolt"
+        case "Oficina": return "paperclip"
+        case "Limpieza": return "sparkles"
+        case "Abarrotes": return "basket"
+        case "Bebidas": return "cup.and.saucer"
+        case "Ferretería": return "wrench.and.screwdriver"
+        default: return "tag"
+        }
+    }
+}

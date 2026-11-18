@@ -77,6 +77,7 @@ struct PorPagarView: View {
                 }
                 .searchable(text: $busqueda, prompt: "Buscar por proveedor")
                 .navigationTitle("Por pagar")
+                .fondoPlateado()
                 .conAvatar()
         }
     }

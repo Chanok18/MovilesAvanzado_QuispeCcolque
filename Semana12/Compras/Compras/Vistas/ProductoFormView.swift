@@ -22,9 +22,16 @@ struct ProductoFormView: View {
     init(producto: Producto?) {
         self.producto = producto
         _nombre = State(initialValue: producto?.nombre ?? "")
-        _categoria = State(initialValue: producto?.categoria ?? "")
+        _categoria = State(initialValue: producto?.categoria ?? Producto.categorias[0])
         _stock = State(initialValue: producto?.stock ?? 0)
         _costoPromedio = State(initialValue: producto?.costoPromedio ?? 0)
+    }
+
+    /// Categorias predefinidas + la del producto si es una antigua escrita a mano
+    private var opcionesCategoria: [String] {
+        let actual = producto?.categoria ?? ""
+        if actual.isEmpty || Producto.categorias.contains(actual) { return Producto.categorias }
+        return [actual] + Producto.categorias
     }
 
     private var esValido: Bool {
@@ -38,7 +45,15 @@ struct ProductoFormView: View {
             Form {
                 Section("Producto") {
                     TextField("Nombre", text: $nombre)
-                    TextField("Categoría", text: $categoria)
+                    Picker(selection: $categoria) {
+                        ForEach(opcionesCategoria, id: \.self) { opcion in
+                            Label(opcion, systemImage: Producto.icono(categoria: opcion))
+                                .tag(opcion)
+                        }
+                    } label: {
+                        Label("Categoría", systemImage: "tag")
+                    }
+                    .pickerStyle(.navigationLink)
                 }
                 Section {
                     Stepper("Stock: \(stock)", value: $stock, in: 0...100_000)
@@ -55,6 +70,7 @@ struct ProductoFormView: View {
                 }
             }
             .navigationTitle(producto == nil ? "Nuevo producto" : "Editar producto")
+            .fondoPlateado()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
