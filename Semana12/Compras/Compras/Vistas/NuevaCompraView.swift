@@ -35,89 +35,170 @@ struct NuevaCompraView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
-                // ① Comprador de la sesion (automatico)
-                if let usuario = sesion.usuario {
-                    Section {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 22) {
+                    // ① Comprador de la sesion (automatico)
+                    if let usuario = sesion.usuario {
                         HStack(spacing: 12) {
-                            AvatarCirculo(iniciales: usuario.iniciales, tamano: 40)
-                            VStack(alignment: .leading) {
-                                Text(usuario.nombre).font(.headline)
-                                Text("Comprador de la sesión").font(.caption).foregroundStyle(.secondary)
+                            AvatarCirculo(iniciales: usuario.iniciales, tamano: 44)
+                                .overlay(Circle().stroke(.white.opacity(0.8), lineWidth: 2))
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(usuario.nombre)
+                                    .font(.system(.headline, design: .rounded))
+                                    .foregroundStyle(.white)
+                                Text("Comprador de la sesión")
+                                    .font(.caption)
+                                    .foregroundStyle(.white.opacity(0.85))
                             }
+                            Spacer()
+                            Image(systemName: "cart.badge.plus")
+                                .font(.title2)
+                                .foregroundStyle(.white.opacity(0.9))
                         }
+                        .padding()
+                        .background(LinearGradient.dorado, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+                        .shadow(color: Color.accentColor.opacity(0.3), radius: 10, y: 5)
                     }
-                }
 
-                Section("Compra") {
                     // ② Proveedor
-                    Picker("Proveedor", selection: $proveedor) {
-                        Text("Elegir").tag(nil as Proveedor?)
-                        ForEach(proveedores) { proveedor in
-                            Text(proveedor.nombre).tag(proveedor as Proveedor?)
+                    PasoCompra(numero: 1, titulo: "Proveedor", icono: "building.2.fill") {
+                        if proveedores.isEmpty {
+                            AvisoVacio(texto: "Aún no hay proveedores registrados.")
+                        } else {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 10) {
+                                    ForEach(proveedores) { item in
+                                        TarjetaOpcion(titulo: item.nombre,
+                                                      detalle: "RUC \(item.ruc)",
+                                                      icono: "building.2",
+                                                      seleccionado: proveedor == item) {
+                                            proveedor = item
+                                        }
+                                        .frame(width: 170)
+                                    }
+                                }
+                                .padding(.vertical, 4)
+                            }
                         }
                     }
 
                     // ③ Producto
-                    Picker("Producto", selection: $producto) {
-                        Text("Elegir").tag(nil as Producto?)
-                        ForEach(productos) { producto in
-                            Text(producto.nombre).tag(producto as Producto?)
+                    PasoCompra(numero: 2, titulo: "Producto", icono: "shippingbox.fill") {
+                        if productos.isEmpty {
+                            AvisoVacio(texto: "Aún no hay productos registrados.")
+                        } else {
+                            LazyVGrid(columns: [GridItem(.flexible(), spacing: 10),
+                                                GridItem(.flexible(), spacing: 10)], spacing: 10) {
+                                ForEach(productos) { item in
+                                    TarjetaOpcion(titulo: item.nombre,
+                                                  detalle: "Stock \(item.stock) · \(item.costoPromedio.soles)",
+                                                  icono: Producto.icono(categoria: item.categoria),
+                                                  seleccionado: producto == item) {
+                                        producto = item
+                                    }
+                                }
+                            }
                         }
                     }
-                    if let producto {
-                        Text("Stock \(producto.stock) · costo prom. \(producto.costoPromedio.soles)")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+
+                    // ④ Cantidad y costo
+                    PasoCompra(numero: 3, titulo: "Cantidad y costo", icono: "number") {
+                        VStack(spacing: 14) {
+                            HStack {
+                                BotonCantidad(icono: "minus") { if cantidad > 1 { cantidad -= 1 } }
+                                Spacer()
+                                VStack(spacing: 0) {
+                                    Text("\(cantidad)")
+                                        .font(.system(size: 34, weight: .bold, design: .rounded))
+                                        .monospacedDigit()
+                                        .contentTransition(.numericText())
+                                    Text("unidades")
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+                                Spacer()
+                                BotonCantidad(icono: "plus") { if cantidad < 10_000 { cantidad += 1 } }
+                            }
+                            .animation(.snappy, value: cantidad)
+
+                            // Atajos de cantidad
+                            HStack(spacing: 8) {
+                                ForEach([5, 10, 50, 100], id: \.self) { valor in
+                                    Button("+\(valor)") { cantidad = min(cantidad + valor, 10_000) }
+                                        .font(.subheadline.weight(.semibold))
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 8)
+                                        .foregroundStyle(Color.accentColor)
+                                        .background(Color.accentColor.opacity(0.12), in: Capsule())
+                                        .buttonStyle(.plain)
+                                }
+                            }
+
+                            Divider()
+
+                            HStack {
+                                Label("Costo unitario", systemImage: "tag.fill")
+                                    .foregroundStyle(.secondary)
+                                Spacer()
+                                Text("S/")
+                                    .foregroundStyle(.secondary)
+                                TextField("0.00", value: $costoUnitario, format: .number.precision(.fractionLength(2)))
+                                    .keyboardType(.decimalPad)
+                                    .multilineTextAlignment(.trailing)
+                                    .font(.system(.title3, design: .rounded).weight(.semibold))
+                                    .frame(maxWidth: 130)
+                            }
+                        }
                     }
 
-                    // ④ Cantidad
-                    Stepper("Cantidad: \(cantidad)", value: $cantidad, in: 1...10_000)
-
-                    HStack {
-                        Text("Costo unitario S/")
-                        TextField("0.00", value: $costoUnitario, format: .number.precision(.fractionLength(2)))
-                            .keyboardType(.decimalPad)
-                            .multilineTextAlignment(.trailing)
+                    // ⑤ Contado o Credito 30 dias
+                    PasoCompra(numero: 4, titulo: "Forma de pago", icono: "creditcard.fill") {
+                        HStack(spacing: 10) {
+                            TarjetaOpcion(titulo: "Contado", detalle: "Se paga hoy",
+                                          icono: "banknote.fill", seleccionado: !alCredito) {
+                                alCredito = false
+                            }
+                            TarjetaOpcion(titulo: "Crédito 30 días",
+                                          detalle: "Vence \(ReglasCompra.fechaVencimiento(desde: .now, alCredito: true).corta)",
+                                          icono: "calendar.badge.clock", seleccionado: alCredito) {
+                                alCredito = true
+                            }
+                        }
                     }
-                }
 
-                // ⑤ Contado o Credito 30 dias
-                Section("Forma de pago") {
-                    Picker("Pago", selection: $alCredito) {
-                        Text("Contado").tag(false)
-                        Text("Crédito 30 días").tag(true)
+                    // Resumen
+                    VStack(alignment: .leading, spacing: 10) {
+                        Label("Resumen", systemImage: "doc.text.fill")
+                            .font(.headline)
+                        FilaMonto(titulo: "Subtotal", monto: calculo.subtotal)
+                        FilaMonto(titulo: "IGV 18 % (crédito fiscal)", monto: calculo.igv)
+                        Divider()
+                        FilaMonto(titulo: "Total", monto: calculo.total, destacado: true)
+
+                        // ⑥ Aviso cuando el total llega a S/ 5,000
+                        if calculo.requiereAprobacion {
+                            Label("Desde \(ReglasCompra.limiteAprobacion.soles) la compra necesita aprobación del supervisor.",
+                                  systemImage: "exclamationmark.shield.fill")
+                                .font(.footnote)
+                                .foregroundStyle(.orange)
+                                .padding(10)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(.orange.opacity(0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        }
                     }
-                    .pickerStyle(.segmented)
-                    if alCredito {
-                        Text("Vence el \(ReglasCompra.fechaVencimiento(desde: .now, alCredito: true).corta)")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                }
+                    .padding()
+                    .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .stroke(Color.accentColor.opacity(0.35), lineWidth: 1))
+                    .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
 
-                Section("Resumen") {
-                    FilaMonto(titulo: "Subtotal", monto: calculo.subtotal)
-                    FilaMonto(titulo: "IGV 18 % (crédito fiscal)", monto: calculo.igv)
-                    FilaMonto(titulo: "Total", monto: calculo.total, destacado: true)
-
-                    // ⑥ Aviso cuando el total llega a S/ 5,000
-                    if calculo.requiereAprobacion {
-                        Label("Desde \(ReglasCompra.limiteAprobacion.soles) la compra necesita aprobación del supervisor.",
-                              systemImage: "exclamationmark.shield.fill")
+                    if let mensajeError {
+                        Label(mensajeError, systemImage: "exclamationmark.triangle.fill")
                             .font(.footnote)
-                            .foregroundStyle(.orange)
+                            .foregroundStyle(.red)
                     }
-                }
 
-                if let mensajeError {
-                    Section {
-                        Text(mensajeError).foregroundStyle(.red)
-                    }
-                }
-
-                // ⑦ Enviar a aprobacion o Registrar compra
-                Section {
+                    // ⑦ Enviar a aprobacion o Registrar compra
                     Button {
                         registrar()
                     } label: {
@@ -125,10 +206,19 @@ struct NuevaCompraView: View {
                               systemImage: calculo.requiereAprobacion ? "paperplane.fill" : "checkmark.circle.fill")
                             .font(.headline)
                             .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
                     }
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.capsule)
+                    .shadow(color: Color.accentColor.opacity(0.35), radius: 10, y: 5)
                     .disabled(!puedeRegistrar)
                 }
+                .padding()
+                .animation(.snappy, value: proveedor)
+                .animation(.snappy, value: producto)
+                .animation(.snappy, value: alCredito)
             }
+            .scrollDismissesKeyboard(.interactively)
             .navigationTitle("Nueva compra")
             .fondoPlateado()
             .conAvatar()
@@ -183,11 +273,115 @@ struct FilaMonto: View {
     var body: some View {
         HStack {
             Text(titulo)
+                .foregroundStyle(destacado ? .primary : .secondary)
             Spacer()
             Text(monto.soles)
                 .monospacedDigit()
                 .fontWeight(destacado ? .bold : .regular)
+                .foregroundStyle(destacado ? Color.accentColor : .primary)
         }
-        .font(destacado ? .headline : .body)
+        .font(destacado ? .system(.title3, design: .rounded) : .body)
+    }
+}
+
+// MARK: - Componentes de diseno de la compra
+
+/// Bloque numerado de cada paso de la compra
+struct PasoCompra<Contenido: View>: View {
+    let numero: Int
+    let titulo: String
+    let icono: String
+    @ViewBuilder let contenido: Contenido
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 8) {
+                Text("\(numero)")
+                    .font(.caption.bold())
+                    .foregroundStyle(.white)
+                    .frame(width: 22, height: 22)
+                    .background(LinearGradient.dorado, in: Circle())
+                Label(titulo, systemImage: icono)
+                    .font(.headline)
+            }
+            contenido
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
+        }
+    }
+}
+
+/// Tarjeta seleccionable (proveedor, producto, forma de pago)
+struct TarjetaOpcion: View {
+    let titulo: String
+    let detalle: String
+    let icono: String
+    let seleccionado: Bool
+    let accion: () -> Void
+
+    var body: some View {
+        Button(action: accion) {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Image(systemName: icono)
+                        .font(.headline)
+                        .foregroundStyle(seleccionado ? .white : Color.accentColor)
+                        .frame(width: 34, height: 34)
+                        .background(seleccionado ? AnyShapeStyle(LinearGradient.dorado)
+                                                 : AnyShapeStyle(Color.accentColor.opacity(0.14)),
+                                    in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    Spacer()
+                    Image(systemName: seleccionado ? "checkmark.circle.fill" : "circle")
+                        .foregroundStyle(seleccionado ? Color.accentColor : Color.secondary.opacity(0.5))
+                }
+                Text(titulo)
+                    .font(.subheadline.weight(.semibold))
+                    .lineLimit(1)
+                Text(detalle)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+            }
+            .padding(12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(seleccionado ? Color.accentColor.opacity(0.10) : Color(.tertiarySystemGroupedBackground),
+                        in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .stroke(seleccionado ? Color.accentColor : .clear, lineWidth: 1.5))
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+/// Boton redondo dorado para sumar o restar la cantidad
+struct BotonCantidad: View {
+    let icono: String
+    let accion: () -> Void
+
+    var body: some View {
+        Button(action: accion) {
+            Image(systemName: icono)
+                .font(.title3.bold())
+                .foregroundStyle(.white)
+                .frame(width: 48, height: 48)
+                .background(LinearGradient.dorado, in: Circle())
+                .shadow(color: Color.accentColor.opacity(0.35), radius: 6, y: 3)
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+/// Mensaje cuando no hay opciones para elegir
+struct AvisoVacio: View {
+    let texto: String
+
+    var body: some View {
+        Label(texto, systemImage: "info.circle")
+            .font(.footnote)
+            .foregroundStyle(.secondary)
     }
 }
